@@ -1,0 +1,2050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LENS & LIGHT — Ahmad Raza Photography | Islamabad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #050505;
+    --deep: #0a0a0a;
+    --card: #111111;
+    --card2: #161616;
+    --border: rgba(255,255,255,0.08);
+    --gold: #c9a84c;
+    --gold2: #e8c97a;
+    --white: #f5f0e8;
+    --muted: rgba(245,240,232,0.55);
+    --red: #e50914;
+    --accent: #c9a84c;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    position: fixed; top: 0; left: 0;
+    width: 12px; height: 12px;
+    background: var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    position: fixed; top: 0; left: 0;
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.18s ease, width 0.25s ease, height 0.25s ease, opacity 0.2s ease;
+    opacity: 0.6;
+  }
+  body:hover .cursor-ring { opacity: 0.6; }
+  .cursor.hovered { width: 20px; height: 20px; }
+  .cursor-ring.hovered { width: 60px; height: 60px; opacity: 0.3; }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 0 4vw;
+    height: 72px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(5,5,5,0.95) 0%, transparent 100%);
+    transition: background 0.4s ease, backdrop-filter 0.4s ease;
+  }
+  nav.scrolled {
+    background: rgba(5,5,5,0.96);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    color: var(--white);
+    text-decoration: none;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-logo-dot {
+    width: 8px; height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+  .nav-links {
+    display: flex; align-items: center; gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    position: relative;
+    transition: color 0.25s;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 0; right: 0;
+    height: 1px; background: var(--gold);
+    transform: scaleX(0); transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+  .nav-cta {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold) !important;
+    padding: 8px 20px;
+    border-radius: 2px;
+    font-size: 0.78rem !important;
+    letter-spacing: 0.15em !important;
+    transition: background 0.25s, color 0.25s !important;
+  }
+  .nav-cta:hover { background: var(--gold) !important; color: var(--black) !important; }
+  .nav-cta:hover::after { display: none; }
+  .nav-menu-btn {
+    display: none;
+    background: none; border: none; color: var(--white);
+    font-size: 1.5rem; cursor: none;
+  }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex; align-items: center; justify-content: flex-start;
+    padding: 0 8vw;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    z-index: 0;
+  }
+  .hero-bg-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridMove 20s linear infinite;
+  }
+  @keyframes gridMove {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(60px); }
+  }
+  .hero-noise {
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.4;
+  }
+  .hero-vignette {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 20% 50%, transparent 30%, rgba(5,5,5,0.7) 80%);
+  }
+  .hero-side-light {
+    position: absolute; right: 0; top: 0; bottom: 0;
+    width: 55%;
+    background: linear-gradient(135deg, rgba(201,168,76,0.04) 0%, transparent 60%);
+  }
+
+  /* Photo Collage in hero */
+  .hero-collage {
+    position: absolute; right: 0; top: 0; bottom: 0;
+    width: 52%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: repeat(5, 1fr);
+    gap: 3px;
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%),
+                linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%),
+                        linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%);
+    mask-composite: intersect;
+    -webkit-mask-composite: source-in;
+  }
+  .collage-item {
+    overflow: hidden;
+    position: relative;
+    background: var(--card);
+  }
+  .collage-item:nth-child(1) { grid-column: 1 / 3; grid-row: 1 / 3; }
+  .collage-item:nth-child(4) { grid-column: 2 / 4; grid-row: 3 / 5; }
+  .collage-item:nth-child(7) { grid-column: 1 / 3; grid-row: 5 / 6; }
+  .collage-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: grayscale(20%) contrast(1.1);
+    transition: transform 0.8s ease, filter 0.4s ease;
+  }
+  .collage-item:hover img { transform: scale(1.05); filter: grayscale(0%) contrast(1.15); }
+
+  /* SVG placeholder photos */
+  .photo-placeholder {
+    width: 100%; height: 100%; min-height: 120px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.65rem; color: rgba(255,255,255,0.15);
+    letter-spacing: 0.1em;
+    background: var(--card);
+  }
+  .photo-placeholder.p1 { background: linear-gradient(135deg, #1a1208 0%, #2c1f0a 50%, #1a0f05 100%); }
+  .photo-placeholder.p2 { background: linear-gradient(135deg, #0d1520 0%, #1a2840 50%, #0d1520 100%); }
+  .photo-placeholder.p3 { background: linear-gradient(135deg, #1a1a1a 0%, #2a2318 50%, #151010 100%); }
+  .photo-placeholder.p4 { background: linear-gradient(160deg, #200d0d 0%, #3a1515 50%, #1a0808 100%); }
+  .photo-placeholder.p5 { background: linear-gradient(135deg, #0a1a10 0%, #152e1a 50%, #0a1510 100%); }
+  .photo-placeholder.p6 { background: linear-gradient(135deg, #1a1015 0%, #2e1a28 50%, #150a18 100%); }
+  .photo-placeholder.p7 { background: linear-gradient(135deg, #1a1800 0%, #2a2800 50%, #181600 100%); }
+  .photo-placeholder.p8 { background: linear-gradient(135deg, #0a0a1a 0%, #151528 50%, #0a0a20 100%); }
+  .photo-placeholder.p9 { background: linear-gradient(135deg, #1a1010 0%, #281a0a 50%, #180d0d 100%); }
+
+  /* Fake photo SVG inserts */
+  .fake-photo {
+    width: 100%; height: 100%; min-height: 120px;
+    position: relative; overflow: hidden;
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 620px;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(201,168,76,0.12);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 2px;
+    padding: 6px 14px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-tag-dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; animation: pulse 1.5s infinite; }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.2rem, 7vw, 6rem);
+    font-weight: 900;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s 0.15s ease both;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+    display: block;
+  }
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+  .hero-actions {
+    display: flex; align-items: center; gap: 1.5rem;
+    flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.45s ease both;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--black);
+    border: none;
+    padding: 14px 32px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: none;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+    border-radius: 2px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    position: relative; overflow: hidden;
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,168,76,0.35); }
+  .btn-primary:hover::before { opacity: 1; }
+  .btn-secondary {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 14px 32px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: none;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+    border-radius: 2px;
+    transition: border-color 0.25s, color 0.25s, background 0.25s;
+  }
+  .btn-secondary:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.06); }
+  .hero-stats {
+    display: flex; align-items: center; gap: 2.5rem;
+    margin-top: 3.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    animation: fadeUp 0.8s 0.6s ease both;
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--gold);
+    display: block;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .stat-divider { width: 1px; height: 40px; background: var(--border); }
+
+  .hero-scroll {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    z-index: 2; animation: fadeUp 1s 1s ease both;
+    cursor: none; text-decoration: none;
+  }
+  .hero-scroll span {
+    font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted);
+  }
+  .scroll-line {
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+  @keyframes scrollLine {
+    0% { transform: scaleY(0); transform-origin: top; opacity: 1; }
+    50% { transform: scaleY(1); transform-origin: top; opacity: 1; }
+    100% { transform: scaleY(1); transform-origin: bottom; opacity: 0; }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SECTION STYLES */
+  section { padding: 100px 8vw; }
+  .section-eyebrow {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); font-weight: 600; margin-bottom: 1.2rem;
+  }
+  .section-eyebrow::before {
+    content: '';
+    display: block; width: 32px; height: 1px; background: var(--gold);
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+    font-weight: 900; line-height: 1.1; margin-bottom: 1.2rem;
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+  .section-desc {
+    font-size: 1rem; color: var(--muted); line-height: 1.75;
+    max-width: 520px; font-weight: 300;
+  }
+
+  /* ABOUT */
+  #about { background: var(--black); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1.2fr;
+    gap: 6vw; align-items: center; margin-top: 4rem;
+  }
+  .about-image-wrap { position: relative; }
+  .about-image-frame {
+    aspect-ratio: 3/4;
+    background: var(--card);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+  .about-image-frame::before {
+    content: 'AHMAD RAZA';
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; color: rgba(201,168,76,0.15);
+    letter-spacing: 0.3em;
+    background: linear-gradient(160deg, #1a1208 0%, #2c1f0a 40%, #0d0a03 100%);
+  }
+  .about-image-frame::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(5,5,5,0.6) 0%, transparent 50%);
+  }
+  /* Decorative camera SVG inside about */
+  .about-image-inner {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 1;
+  }
+  .about-accent-line {
+    position: absolute; top: 20px; right: -20px;
+    width: 2px; height: 60%;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    border-radius: 1px;
+  }
+  .about-accent-box {
+    position: absolute; bottom: -20px; left: -20px;
+    padding: 16px 22px;
+    background: var(--gold);
+    border-radius: 3px;
+    z-index: 3;
+  }
+  .about-accent-box strong {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.5rem; color: var(--black); display: block; line-height: 1;
+  }
+  .about-accent-box span {
+    font-size: 0.72rem; color: rgba(0,0,0,0.65); letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .about-content { padding-top: 1rem; }
+  .about-content .section-title { margin-top: 0.5rem; }
+  .about-body {
+    font-size: 1rem; color: var(--muted); line-height: 1.85; font-weight: 300;
+    margin: 1.5rem 0 2.5rem;
+  }
+  .about-skills {
+    display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 2.5rem;
+  }
+  .skill-tag {
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.25);
+    color: var(--gold);
+    padding: 6px 14px; border-radius: 2px;
+    font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em;
+  }
+  .about-awards {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .award-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 14px 16px;
+    transition: border-color 0.25s;
+  }
+  .award-card:hover { border-color: rgba(201,168,76,0.3); }
+  .award-icon { font-size: 1.1rem; margin-bottom: 6px; }
+  .award-title { font-size: 0.82rem; font-weight: 600; margin-bottom: 2px; }
+  .award-year { font-size: 0.72rem; color: var(--muted); }
+
+  /* PORTFOLIO NETFLIX ROW */
+  #portfolio { background: var(--deep); }
+  .portfolio-filter {
+    display: flex; align-items: center; gap: 1rem;
+    flex-wrap: wrap; margin: 2rem 0 3rem;
+  }
+  .filter-btn {
+    background: transparent; border: 1px solid var(--border);
+    color: var(--muted); padding: 8px 18px; border-radius: 2px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.8rem;
+    font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+    cursor: none; transition: all 0.2s;
+  }
+  .filter-btn.active, .filter-btn:hover {
+    background: var(--gold); border-color: var(--gold);
+    color: var(--black);
+  }
+
+  /* Netflix Row */
+  .netflix-row { margin-bottom: 3.5rem; }
+  .netflix-row-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  .netflix-row-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; font-weight: 700; color: var(--white);
+  }
+  .netflix-row-title span { color: var(--gold); font-style: italic; }
+  .see-all {
+    font-size: 0.78rem; color: var(--gold); text-decoration: none;
+    letter-spacing: 0.1em; font-weight: 500;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .netflix-row:hover .see-all { opacity: 1; }
+  .netflix-track-wrap { overflow: hidden; position: relative; }
+  .netflix-track-wrap::after {
+    content: ''; position: absolute; right: 0; top: 0; bottom: 0;
+    width: 80px;
+    background: linear-gradient(to right, transparent, var(--deep));
+    pointer-events: none;
+  }
+  .netflix-track {
+    display: flex; gap: 8px;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .netflix-card {
+    flex: 0 0 calc(20% - 7px);
+    min-width: 180px;
+    aspect-ratio: 2/3;
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--card);
+    position: relative;
+    cursor: none;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                z-index 0s 0.2s;
+    transform-origin: center center;
+  }
+  .netflix-track:hover .netflix-card { transform: translateX(-4%); }
+  .netflix-track:hover .netflix-card:hover {
+    transform: scale(1.28) !important;
+    z-index: 10;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), z-index 0s;
+  }
+  .netflix-card:hover ~ .netflix-card { transform: translateX(4%); }
+  .card-img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+    transition: filter 0.3s;
+  }
+  .card-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.2) 50%, transparent 100%);
+    opacity: 0; transition: opacity 0.3s;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 14px;
+  }
+  .netflix-card:hover .card-overlay { opacity: 1; }
+  .card-cat {
+    font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--gold); font-weight: 600; margin-bottom: 4px;
+  }
+  .card-title { font-size: 0.82rem; font-weight: 600; line-height: 1.3; }
+  .card-actions {
+    display: flex; gap: 6px; margin-top: 8px;
+  }
+  .card-btn {
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+    color: var(--white); font-size: 0.75rem; cursor: none;
+    transition: background 0.2s;
+  }
+  .card-btn:hover { background: var(--gold); border-color: var(--gold); color: var(--black); }
+  .card-btn.play { background: var(--white); color: var(--black); }
+  .card-btn.play:hover { background: var(--gold); }
+
+  /* Fake Photo Colors for cards */
+  .fc1 { background: linear-gradient(160deg, #1a0e06 0%, #3d2510 60%, #1a1208 100%); }
+  .fc2 { background: linear-gradient(160deg, #06101a 0%, #0f2540 60%, #060d1a 100%); }
+  .fc3 { background: linear-gradient(160deg, #1a0808 0%, #3d1212 60%, #1a0606 100%); }
+  .fc4 { background: linear-gradient(160deg, #0a1a0a 0%, #1a3d1a 60%, #081208 100%); }
+  .fc5 { background: linear-gradient(160deg, #1a1506 0%, #3d3510 60%, #1a1408 100%); }
+  .fc6 { background: linear-gradient(160deg, #10061a 0%, #251040 60%, #0d0818 100%); }
+  .fc7 { background: linear-gradient(160deg, #1a0a0a 0%, #402020 60%, #180808 100%); }
+  .fc8 { background: linear-gradient(160deg, #0a0a1a 0%, #1a1a40 60%, #080818 100%); }
+  .fc9 { background: linear-gradient(160deg, #1a1208 0%, #3d3010 60%, #1a1006 100%); }
+  .fc10 { background: linear-gradient(160deg, #0a1a15 0%, #1a3d30 60%, #081810 100%); }
+
+  /* Fake scene SVGs inside cards */
+  .scene { width: 100%; height: 100%; position: absolute; inset: 0; }
+
+  /* FEATURED WORK */
+  #featured { background: var(--black); }
+  .featured-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 6px; margin-top: 3rem;
+  }
+  .featured-main {
+    grid-column: 1; grid-row: 1 / 3;
+    aspect-ratio: 4/5;
+    border-radius: 4px; overflow: hidden;
+    position: relative; cursor: none;
+    background: var(--card);
+  }
+  .featured-side {
+    aspect-ratio: 1;
+    border-radius: 4px; overflow: hidden;
+    position: relative; cursor: none;
+    background: var(--card);
+  }
+  .featured-item {
+    width: 100%; height: 100%;
+    position: relative; overflow: hidden;
+    transition: transform 0.5s ease;
+  }
+  .featured-item:hover { transform: scale(1.03); }
+  .featured-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(5,5,5,0.85) 0%, transparent 60%);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 24px;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .featured-main:hover .featured-overlay,
+  .featured-side:hover .featured-overlay { opacity: 1; }
+  .featured-label {
+    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); font-weight: 600; margin-bottom: 6px;
+  }
+  .featured-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 700;
+  }
+  .featured-main .featured-name { font-size: 2rem; }
+
+  /* EQUIPMENT */
+  #equipment { background: var(--deep); }
+  .equipment-tabs {
+    display: flex; gap: 0; margin: 2.5rem 0 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .eq-tab {
+    background: none; border: none; border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    padding: 12px 24px; color: var(--muted); font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+    font-weight: 500; cursor: none; transition: all 0.2s;
+  }
+  .eq-tab.active { color: var(--white); border-bottom-color: var(--gold); }
+  .eq-tab:hover { color: var(--white); }
+  .eq-panel { display: none; }
+  .eq-panel.active { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+  .eq-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 6px; padding: 24px;
+    display: flex; align-items: flex-start; gap: 16px;
+    transition: border-color 0.25s, transform 0.25s;
+    cursor: none;
+  }
+  .eq-card:hover { border-color: rgba(201,168,76,0.4); transform: translateY(-3px); }
+  .eq-icon {
+    width: 44px; height: 44px; flex-shrink: 0;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+  }
+  .eq-info { flex: 1; }
+  .eq-name { font-size: 0.92rem; font-weight: 600; margin-bottom: 3px; }
+  .eq-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+  .eq-tag {
+    display: inline-block; margin-top: 8px;
+    background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.2);
+    color: var(--gold); padding: 3px 10px; border-radius: 2px;
+    font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+  }
+
+  /* SERVICES */
+  #services { background: var(--black); }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2px; margin-top: 3rem;
+    border: 1px solid var(--border); border-radius: 6px; overflow: hidden;
+  }
+  .service-card {
+    background: var(--card); padding: 36px 32px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    position: relative; overflow: hidden;
+    cursor: none; transition: background 0.3s;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(201,168,76,0.06) 0%, transparent 60%);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .service-card:hover { background: var(--card2); }
+  .service-card:hover::before { opacity: 1; }
+  .service-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem; color: var(--gold); font-weight: 700;
+    letter-spacing: 0.1em; margin-bottom: 1.5rem; display: block;
+  }
+  .service-icon {
+    font-size: 2rem; margin-bottom: 1rem;
+    transition: transform 0.3s;
+  }
+  .service-card:hover .service-icon { transform: translateY(-4px); }
+  .service-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem; font-weight: 700; margin-bottom: 0.8rem;
+  }
+  .service-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
+  .service-price {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.2rem; color: var(--gold); font-weight: 700;
+  }
+  .service-price span { font-size: 0.72rem; color: var(--muted); font-weight: 400; }
+
+  /* TESTIMONIALS */
+  #testimonials { background: var(--deep); overflow: hidden; }
+  .testimonials-track-wrap { margin-top: 3rem; overflow: hidden; }
+  .testimonials-track {
+    display: flex; gap: 20px;
+    animation: scrollTestimonials 30s linear infinite;
+    width: max-content;
+  }
+  .testimonials-track:hover { animation-play-state: paused; }
+  @keyframes scrollTestimonials {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .testimonial-card {
+    flex: 0 0 380px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 6px; padding: 28px;
+  }
+  .testimonial-stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 1rem; letter-spacing: 2px; }
+  .testimonial-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem; font-style: italic;
+    line-height: 1.65; color: var(--white);
+    margin-bottom: 1.5rem;
+  }
+  .testimonial-author { display: flex; align-items: center; gap: 12px; }
+  .author-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold) 0%, #8b6d2a 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem; font-weight: 700; color: var(--black);
+    flex-shrink: 0;
+  }
+  .author-name { font-size: 0.88rem; font-weight: 600; }
+  .author-role { font-size: 0.75rem; color: var(--muted); }
+
+  /* PROCESS */
+  #process { background: var(--black); }
+  .process-steps {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0; margin-top: 3.5rem;
+    position: relative;
+  }
+  .process-steps::before {
+    content: '';
+    position: absolute; top: 28px; left: 10%; right: 10%;
+    height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent);
+    z-index: 0;
+  }
+  .process-step { padding: 0 20px; text-align: center; position: relative; z-index: 1; }
+  .step-num {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--black); border: 1px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Mono', monospace; font-size: 0.9rem; color: var(--gold);
+    font-weight: 700; margin: 0 auto 1.5rem;
+    transition: background 0.3s, transform 0.3s;
+  }
+  .process-step:hover .step-num { background: var(--gold); color: var(--black); transform: scale(1.1); }
+  .step-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.6rem; }
+  .step-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.65; }
+
+  /* BLOG */
+  #blog { background: var(--deep); }
+  .blog-grid {
+    display: grid; grid-template-columns: 2fr 1fr;
+    gap: 24px; margin-top: 3rem;
+  }
+  .blog-featured { cursor: none; }
+  .blog-img {
+    aspect-ratio: 16/9;
+    border-radius: 4px; overflow: hidden;
+    background: var(--card); margin-bottom: 1.2rem; position: relative;
+  }
+  .blog-img:hover .blog-img-inner { transform: scale(1.04); }
+  .blog-img-inner { width: 100%; height: 100%; transition: transform 0.5s ease; }
+  .blog-cat {
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); font-weight: 600; margin-bottom: 8px; display: block;
+  }
+  .blog-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.55rem; font-weight: 700; line-height: 1.25;
+    margin-bottom: 0.8rem; color: var(--white);
+    text-decoration: none; display: block; transition: color 0.2s;
+  }
+  .blog-title:hover { color: var(--gold); }
+  .blog-meta { font-size: 0.78rem; color: var(--muted); }
+  .blog-list { display: flex; flex-direction: column; gap: 16px; }
+  .blog-list-item {
+    display: flex; gap: 14px; cursor: none;
+    padding-bottom: 16px; border-bottom: 1px solid var(--border);
+  }
+  .blog-list-item:last-child { border-bottom: none; }
+  .blog-thumb {
+    flex: 0 0 80px; height: 80px;
+    border-radius: 3px; overflow: hidden; background: var(--card);
+  }
+  .blog-thumb-inner { width: 100%; height: 100%; transition: transform 0.4s; }
+  .blog-list-item:hover .blog-thumb-inner { transform: scale(1.08); }
+  .blog-list-title {
+    font-size: 0.88rem; font-weight: 600; line-height: 1.4;
+    text-decoration: none; color: var(--white); transition: color 0.2s;
+    display: block; margin-bottom: 4px;
+  }
+  .blog-list-title:hover { color: var(--gold); }
+  .blog-list-meta { font-size: 0.72rem; color: var(--muted); }
+
+  /* CONTACT */
+  #contact { background: var(--black); }
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1.2fr;
+    gap: 6vw; margin-top: 3.5rem; align-items: start;
+  }
+  .contact-info { }
+  .contact-detail {
+    display: flex; align-items: flex-start; gap: 14px;
+    margin-bottom: 2rem;
+  }
+  .contact-icon {
+    width: 44px; height: 44px; flex-shrink: 0;
+    border: 1px solid rgba(201,168,76,0.3); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; color: var(--gold);
+  }
+  .contact-detail-text { }
+  .contact-detail-label { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+  .contact-detail-value { font-size: 0.95rem; font-weight: 500; }
+  .contact-social { display: flex; gap: 12px; margin-top: 2rem; }
+  .social-btn {
+    width: 42px; height: 42px; border-radius: 50%;
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted); font-size: 0.9rem; text-decoration: none;
+    transition: all 0.25s; cursor: none;
+  }
+  .social-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.08); }
+  .contact-form { }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .form-group { margin-bottom: 14px; }
+  .form-label { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 6px; font-weight: 500; }
+  .form-input, .form-select, .form-textarea {
+    width: 100%; background: var(--card); border: 1px solid var(--border);
+    border-radius: 3px; padding: 12px 14px;
+    color: var(--white); font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem; transition: border-color 0.25s, background 0.25s;
+    outline: none; appearance: none;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: var(--gold); background: var(--card2);
+  }
+  .form-input::placeholder, .form-textarea::placeholder { color: rgba(245,240,232,0.25); }
+  .form-textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
+  .form-select option { background: var(--card); }
+  .form-submit {
+    width: 100%; padding: 14px;
+    background: var(--gold); border: none;
+    color: var(--black); font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; border-radius: 3px; cursor: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .form-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,168,76,0.3); }
+  .form-note { font-size: 0.75rem; color: var(--muted); margin-top: 10px; text-align: center; }
+
+  /* FOOTER */
+  footer {
+    background: var(--deep);
+    border-top: 1px solid var(--border);
+    padding: 60px 8vw 30px;
+  }
+  .footer-top {
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 4vw; margin-bottom: 50px;
+  }
+  .footer-brand .nav-logo { margin-bottom: 1.2rem; display: inline-flex; }
+  .footer-brand p { font-size: 0.88rem; color: var(--muted); line-height: 1.75; max-width: 260px; font-weight: 300; }
+  .footer-col-title { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 1.2rem; }
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 0.6rem; }
+  .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--white); }
+  .footer-bottom {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 28px; border-top: 1px solid var(--border);
+    font-size: 0.78rem; color: var(--muted);
+  }
+  .footer-bottom-right { display: flex; gap: 1.5rem; }
+  .footer-bottom-right a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .footer-bottom-right a:hover { color: var(--white); }
+
+  /* LIGHTBOX */
+  .lightbox {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.95); z-index: 2000;
+    align-items: center; justify-content: center;
+    backdrop-filter: blur(10px);
+  }
+  .lightbox.open { display: flex; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .lightbox-inner {
+    max-width: 900px; width: 90vw;
+    background: var(--card); border-radius: 6px; overflow: hidden;
+    position: relative;
+  }
+  .lightbox-close {
+    position: absolute; top: 16px; right: 16px;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(255,255,255,0.1); border: none;
+    color: var(--white); font-size: 1rem; cursor: none;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 10; transition: background 0.2s;
+  }
+  .lightbox-close:hover { background: rgba(255,255,255,0.2); }
+  .lightbox-img { width: 100%; aspect-ratio: 16/9; display: block; }
+  .lightbox-info { padding: 20px 24px; }
+  .lightbox-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 6px; }
+  .lightbox-desc { font-size: 0.88rem; color: var(--muted); }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0; transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* MOBILE NAV */
+  .mobile-nav {
+    display: none; position: fixed; inset: 0;
+    background: rgba(5,5,5,0.98); z-index: 999;
+    flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
+  }
+  .mobile-nav.open { display: flex; animation: fadeIn 0.3s; }
+  .mobile-nav a { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--white); text-decoration: none; transition: color 0.2s; }
+  .mobile-nav a:hover { color: var(--gold); }
+  .mobile-close { position: absolute; top: 1.5rem; right: 2rem; background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: none; }
+
+  /* MARQUEE */
+  .marquee-wrap {
+    background: var(--gold);
+    overflow: hidden; padding: 14px 0;
+  }
+  .marquee-track {
+    display: flex; gap: 0;
+    animation: marquee 18s linear infinite;
+    width: max-content;
+  }
+  .marquee-item {
+    display: inline-flex; align-items: center; gap: 20px;
+    padding: 0 24px; white-space: nowrap;
+    font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--black); font-family: 'Space Mono', monospace;
+  }
+  .marquee-dot { width: 5px; height: 5px; background: rgba(0,0,0,0.35); border-radius: 50%; }
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* COUNTER ANIMATION */
+  .count-up { display: inline-block; }
+
+  @media (max-width: 1024px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .about-image-wrap { display: none; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .process-steps { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .process-steps::before { display: none; }
+    .blog-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 768px) {
+    .nav-links, .nav-cta-wrap { display: none; }
+    .nav-menu-btn { display: block; }
+    section { padding: 70px 5vw; }
+    nav { padding: 0 5vw; }
+    .hero-collage { display: none; }
+    #hero { padding: 0 5vw; }
+    .netflix-card { flex: 0 0 calc(40% - 5px); }
+    .form-row { grid-template-columns: 1fr; }
+    .featured-grid { grid-template-columns: 1fr 1fr; }
+    .featured-main { grid-column: 1 / 3; grid-row: 1; }
+    .footer-top { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    .hero-stats { gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <div class="lightbox-img" id="lightboxImg" style="background: linear-gradient(135deg, #1a1208, #3d2a10, #1a0e05);"></div>
+    <div class="lightbox-info">
+      <div class="lightbox-title" id="lightboxTitle">Portrait — Golden Hour</div>
+      <div class="lightbox-desc" id="lightboxDesc">Islamabad, Margalla Hills · 2024 · Sony A7 IV + 85mm f/1.4</div>
+    </div>
+  </div>
+</div>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-close" onclick="toggleNav()">✕</button>
+  <a href="#about" onclick="toggleNav()">About</a>
+  <a href="#portfolio" onclick="toggleNav()">Portfolio</a>
+  <a href="#equipment" onclick="toggleNav()">Equipment</a>
+  <a href="#services" onclick="toggleNav()">Services</a>
+  <a href="#blog" onclick="toggleNav()">Journal</a>
+  <a href="#contact" onclick="toggleNav()">Contact</a>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">
+    <div class="nav-logo-dot"></div>
+    LENS<span>&</span>LIGHT
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#equipment">Gear</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#blog">Journal</a></li>
+    <li><a href="#contact" class="nav-cta">Book Now</a></li>
+  </ul>
+  <button class="nav-menu-btn" onclick="toggleNav()">☰</button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-noise"></div>
+    <div class="hero-vignette"></div>
+    <div class="hero-side-light"></div>
+  </div>
+
+  <!-- Photo Collage -->
+  <div class="hero-collage">
+    <div class="collage-item">
+      <div class="photo-placeholder p1" style="height:100%; position:relative;">
+        <svg width="100%" height="100%" viewBox="0 0 400 300" style="position:absolute;inset:0">
+          <defs><radialGradient id="rg1" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#c9a84c" stop-opacity="0.15"/><stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/></radialGradient></defs>
+          <rect width="400" height="300" fill="url(#rg1)"/>
+          <ellipse cx="200" cy="130" rx="60" ry="75" fill="none" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
+          <line x1="50" y1="280" x2="350" y2="280" stroke="rgba(201,168,76,0.12)" stroke-width="1"/>
+          <circle cx="200" cy="70" r="3" fill="rgba(201,168,76,0.4)"/>
+          <text x="200" y="260" font-family="'Playfair Display',serif" font-size="11" fill="rgba(201,168,76,0.3)" text-anchor="middle" font-style="italic">Portrait Series</text>
+        </svg>
+      </div>
+    </div>
+    <div class="collage-item"><div class="photo-placeholder p2" style="height:100%;">
+      <svg width="100%" height="100%" viewBox="0 0 200 200" style="position:absolute;inset:0">
+        <rect width="200" height="200" fill="rgba(24,80,140,0.1)"/>
+        <rect x="40" y="60" width="120" height="90" rx="2" fill="none" stroke="rgba(100,160,220,0.2)" stroke-width="1"/>
+        <text x="100" y="175" font-family="'Space Mono',monospace" font-size="9" fill="rgba(100,160,220,0.3)" text-anchor="middle">ARCHITECTURE</text>
+      </svg>
+    </div></div>
+    <div class="collage-item"><div class="photo-placeholder p3" style="height:100%;">
+      <svg width="100%" height="100%" viewBox="0 0 200 200" style="position:absolute;inset:0">
+        <rect width="200" height="200" fill="rgba(60,40,20,0.1)"/>
+        <path d="M0 140 Q100 80 200 140" fill="rgba(201,168,76,0.08)" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+        <text x="100" y="175" font-family="'Space Mono',monospace" font-size="9" fill="rgba(201,168,76,0.3)" text-anchor="middle">LANDSCAPE</text>
+      </svg>
+    </div></div>
+    <div class="collage-item"><div class="photo-placeholder p4" style="height:100%;">
+      <svg width="100%" height="100%" viewBox="0 0 200 260" style="position:absolute;inset:0">
+        <rect width="200" height="260" fill="rgba(80,20,20,0.1)"/>
+        <circle cx="100" cy="110" r="50" fill="none" stroke="rgba(220,100,80,0.18)" stroke-width="1"/>
+        <text x="100" y="230" font-family="'Space Mono',monospace" font-size="9" fill="rgba(220,100,80,0.3)" text-anchor="middle">EVENTS</text>
+      </svg>
+    </div></div>
+    <div class="collage-item"><div class="photo-placeholder p5" style="height:100%;">
+      <svg width="100%" height="100%" viewBox="0 0 200 260" style="position:absolute;inset:0">
+        <rect width="200" height="260" fill="rgba(20,80,30,0.1)"/>
+        <rect x="30" y="30" width="140" height="200" rx="3" fill="none" stroke="rgba(80,180,100,0.15)" stroke-width="1"/>
+        <text x="100" y="240" font-family="'Space Mono',monospace" font-size="9" fill="rgba(80,180,100,0.3)" text-anchor="middle">FASHION</text>
+      </svg>
+    </div></div>
+    <div class="collage-item"><div class="photo-placeholder p6" style="height:100%;">
+      <svg width="100%" height="100%" viewBox="0 0 200 200" style="position:absolute;inset:0">
+        <rect width="200" height="200" fill="rgba(80,20,80,0.1)"/>
+        <path d="M0 200 L100 40 L200 200Z" fill="rgba(180,80,200,0.06)" stroke="rgba(180,80,200,0.15)" stroke-width="1"/>
+        <text x="100" y="185" font-family="'Space Mono',monospace" font-size="9" fill="rgba(180,80,200,0.3)" text-anchor="middle">WEDDINGS</text>
+      </svg>
+    </div></div>
+    <div class="collage-item"><div class="photo-placeholder p7" style="height:100%;">
+      <svg width="100%" height="100%" viewBox="0 0 400 120" style="position:absolute;inset:0">
+        <rect width="400" height="120" fill="rgba(80,70,0,0.1)"/>
+        <path d="M0 80 Q200 20 400 80" fill="none" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
+        <text x="200" y="100" font-family="'Space Mono',monospace" font-size="9" fill="rgba(201,168,76,0.3)" text-anchor="middle">COMMERCIAL</text>
+      </svg>
+    </div></div>
+    <div class="collage-item"><div class="photo-placeholder p8" style="height:100%;">
+      <svg width="100%" height="100%" viewBox="0 0 200 200" style="position:absolute;inset:0">
+        <rect width="200" height="200" fill="rgba(20,20,80,0.1)"/>
+        <circle cx="100" cy="90" r="65" fill="none" stroke="rgba(80,120,220,0.12)" stroke-width="1"/>
+        <circle cx="100" cy="90" r="40" fill="none" stroke="rgba(80,120,220,0.1)" stroke-width="1"/>
+        <text x="100" y="175" font-family="'Space Mono',monospace" font-size="9" fill="rgba(80,120,220,0.3)" text-anchor="middle">AERIAL</text>
+      </svg>
+    </div></div>
+    <div class="collage-item"><div class="photo-placeholder p9" style="height:100%;">
+      <svg width="100%" height="100%" viewBox="0 0 200 200" style="position:absolute;inset:0">
+        <rect width="200" height="200" fill="rgba(80,40,20,0.1)"/>
+        <line x1="100" y1="0" x2="100" y2="200" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+        <line x1="0" y1="100" x2="200" y2="100" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+        <text x="100" y="185" font-family="'Space Mono',monospace" font-size="9" fill="rgba(201,168,76,0.3)" text-anchor="middle">STREET</text>
+      </svg>
+    </div></div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-tag">
+      <div class="hero-tag-dot"></div>
+      Available for Projects · Islamabad, Pakistan
+    </div>
+    <h1 class="hero-title">
+      Capturing<br>
+      <em>Moments</em><br>
+      That Last
+    </h1>
+    <p class="hero-sub">
+      Award-winning photographer based in Islamabad, specialising in portraits, weddings, commercial photography and the breathtaking landscapes of Pakistan.
+    </p>
+    <div class="hero-actions">
+      <a href="#portfolio" class="btn-primary">
+        <span>▶</span> View Portfolio
+      </a>
+      <a href="#contact" class="btn-secondary">
+        Book a Session
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num" data-count="850">850</span>
+        <span class="stat-label">Projects Done</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num" data-count="12">12</span>
+        <span class="stat-label">Years Active</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num" data-count="97">97%</span>
+        <span class="stat-label">Happy Clients</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num" data-count="6">6</span>
+        <span class="stat-label">Int'l Awards</span>
+      </div>
+    </div>
+  </div>
+
+  <a href="#about" class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </a>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-item">Portrait Photography <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Wedding Photography <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Commercial Shoots <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Landscape & Nature <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Fashion Editorials <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Aerial Photography <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Event Coverage <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Street Photography <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Corporate Headshots <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Based in Islamabad <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Portrait Photography <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Wedding Photography <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Commercial Shoots <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Landscape & Nature <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Fashion Editorials <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Aerial Photography <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Event Coverage <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Street Photography <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Corporate Headshots <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Based in Islamabad <span class="marquee-dot"></span></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-image-wrap reveal">
+      <div class="about-image-frame">
+        <div class="about-image-inner">
+          <svg width="180" height="180" viewBox="0 0 180 180">
+            <circle cx="90" cy="90" r="80" fill="none" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+            <circle cx="90" cy="90" r="55" fill="none" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
+            <circle cx="90" cy="90" r="30" fill="none" stroke="rgba(201,168,76,0.12)" stroke-width="1.5"/>
+            <circle cx="90" cy="90" r="8" fill="rgba(201,168,76,0.2)"/>
+            <line x1="10" y1="90" x2="170" y2="90" stroke="rgba(201,168,76,0.06)" stroke-width="1"/>
+            <line x1="90" y1="10" x2="90" y2="170" stroke="rgba(201,168,76,0.06)" stroke-width="1"/>
+            <text x="90" y="158" font-family="'Space Mono',monospace" font-size="9" fill="rgba(201,168,76,0.25)" text-anchor="middle" letter-spacing="3">AHMAD RAZA</text>
+          </svg>
+        </div>
+      </div>
+      <div class="about-accent-line"></div>
+      <div class="about-accent-box">
+        <strong>12+</strong>
+        <span>Years of Experience</span>
+      </div>
+    </div>
+    <div class="about-content">
+      <div class="section-eyebrow reveal">About Me</div>
+      <h2 class="section-title reveal">
+        I Tell Stories<br>
+        <em>Through Light</em>
+      </h2>
+      <p class="about-body reveal">
+        Born and raised in the heart of Islamabad, I've spent over a decade capturing the soul of Pakistan — from the golden spires of the Faisal Mosque at dawn to the snow-dusted peaks of the Karakoram. My lens is my voice, and every frame is a sentence in a story worth telling.
+      </p>
+      <p class="about-body reveal" style="margin-top: -1rem;">
+        I combine technical mastery with an emotional sensitivity that turns ordinary moments into extraordinary images. Whether it's a whispered laugh at a wedding, the last light catching a mountain ridge, or the quiet dignity of a street vendor — I see the extraordinary in the everyday.
+      </p>
+      <div class="about-skills reveal">
+        <span class="skill-tag">Portrait</span>
+        <span class="skill-tag">Wedding</span>
+        <span class="skill-tag">Commercial</span>
+        <span class="skill-tag">Landscape</span>
+        <span class="skill-tag">Aerial / Drone</span>
+        <span class="skill-tag">Fashion</span>
+        <span class="skill-tag">Street</span>
+        <span class="skill-tag">Architectural</span>
+        <span class="skill-tag">Event</span>
+      </div>
+      <div class="about-awards reveal">
+        <div class="award-card">
+          <div class="award-icon">🏆</div>
+          <div class="award-title">Asia Pacific Photography Award</div>
+          <div class="award-year">2023 — Gold</div>
+        </div>
+        <div class="award-card">
+          <div class="award-icon">🥇</div>
+          <div class="award-title">Pakistan Press Foundation Award</div>
+          <div class="award-year">2022 — Best Portrait</div>
+        </div>
+        <div class="award-card">
+          <div class="award-icon">📸</div>
+          <div class="award-title">Sony World Photography Awards</div>
+          <div class="award-year">2021 — Shortlisted</div>
+        </div>
+        <div class="award-card">
+          <div class="award-icon">✦</div>
+          <div class="award-title">National Geographic Contributor</div>
+          <div class="award-year">2020–Present</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO — NETFLIX ROWS -->
+<section id="portfolio">
+  <div class="section-eyebrow reveal">Portfolio</div>
+  <h2 class="section-title reveal">My Creative <em>Universe</em></h2>
+  <p class="section-desc reveal">Scroll through collections of work spanning a decade of visual storytelling across Pakistan and the world.</p>
+
+  <div class="portfolio-filter reveal" style="margin-top: 2rem;">
+    <button class="filter-btn active" onclick="filterPortfolio('all', this)">All Work</button>
+    <button class="filter-btn" onclick="filterPortfolio('portrait', this)">Portraits</button>
+    <button class="filter-btn" onclick="filterPortfolio('wedding', this)">Weddings</button>
+    <button class="filter-btn" onclick="filterPortfolio('landscape', this)">Landscapes</button>
+    <button class="filter-btn" onclick="filterPortfolio('commercial', this)">Commercial</button>
+    <button class="filter-btn" onclick="filterPortfolio('street', this)">Street</button>
+  </div>
+
+  <!-- Row 1 -->
+  <div class="netflix-row reveal">
+    <div class="netflix-row-header">
+      <div class="netflix-row-title">Portrait <span>Mastery</span></div>
+      <a href="#" class="see-all">Explore All →</a>
+    </div>
+    <div class="netflix-track-wrap">
+      <div class="netflix-track" id="row1">
+        <div class="netflix-card fc1" onclick="openLightbox('Gulshan-e-Iqbal Portrait','Shot at golden hour near Margalla Hills · Sony A7 IV + 85mm f/1.4 GM')">
+          <div class="card-overlay"><div class="card-cat">Portrait</div><div class="card-title">The Golden Hour</div><div class="card-actions"><div class="card-btn play">▶</div><div class="card-btn">+</div><div class="card-btn">♥</div></div></div>
+        </div>
+        <div class="netflix-card fc5" onclick="openLightbox('Stillness','A meditative portrait study · 50mm f/1.2')">
+          <div class="card-overlay"><div class="card-cat">Portrait</div><div class="card-title">Stillness</div><div class="card-actions"><div class="card-btn play">▶</div><div class="card-btn">+</div><div class="card-btn">♥</div></div></div>
+        </div>
+        <div class="netflix-card fc3" onclick="openLightbox('The Artisan','Street portrait series, Old Rawalpindi Bazaar · 35mm f/2')">
+          <div class="card-overlay"><div class="card-cat">Portrait</div><div class="card-title">The Artisan</div><div class="card-actions"><div class="card-btn play">▶</div><div class="card-btn">+</div><div class="card-btn">♥</div></div></div>
+        </div>
+        <div class="netflix-card fc6" onclick="openLightbox('Between Worlds','Duality portrait series · 85mm f/1.4')">
+          <div class="card-overlay"><div class="card-cat">Portrait</div><div class="card-title">Between Worlds</div><div class="card-actions"><div class="card-btn play">▶</div><div class="card-btn">+</div><div class="card-btn">♥</div></div></div>
+        </div>
+        <div class="netflix-card fc9" onclick="openLightbox('Grandmother','Documentary portrait, Peshawar · 50mm f/1.8')">
+          <div class="card-overlay"><div class="card-cat">Portrait</div><div class="card-title">Grandmother</div><div class="card-actions"><div class="card-btn play">▶</div><div class="card-btn">+</div><div class="card-btn">♥</div></div></div>
+        </div>
+        <div class="netflix-card fc2" onclick="openLightbox('Youth','Documentary series, Islamabad · 35mm')">
+          <div class="card-overlay"><div class="card-cat">Portrait</div><div class="card-title">Youth</div><div class="card-actions"><div class="card-btn play">▶</div><div class="card-btn">+</div><div class="card-btn">♥</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 2 -->
+  <div class="netflix-row reveal">
+    <div class="netflix-row-header">
+      <div class="netflix-row-title">Weddings & <span>Celebrations</span></div>
+      <a href="#" class="see-all">Explore All →</a>
+    </div>
+    <div class="netflix-track-wrap">
+      <div class="netflix-track" id="row2">
+        <div class="netflix-card fc4" onclick="openLightbox('Nikkah Ceremony','Grand ceremony, Islamabad · Sony A7 IV')">
+          <div class="card-overlay"><div class="card-cat">Wedding</div><div class="card-title">The Nikkah</div><div class="card-actions"><div class="card-btn play">▶</div><div class="card-btn">+</div><div class="card-btn">♥</div></div></div>
+        </div>
+        <div class="netflix-card fc7" onclick="openLightbox('Mehndi Night','Colour explosion at Mehndi · 24-70mm f/2.8')">
+          <div class="card-overlay"><div class="card-cat">Wedding</div><div class="card-title">Mehndi Night</div><div class="card-actions"><div class="card-btn play">▶</div><div class="card-btn">+</div><div class="card-btn">♥</div></div></div>
+        </div>
+        <div class="netflix-card fc1" onclick="openLightbox('First Dance','Candid moment, a first dance · 85mm f/1.4')">
+          <div class="card-overlay"><div class="card-cat">Wedding</div><div class="card-title">First Dance</div><div class="card-actions"><div class="card-btn play">▶</div><div class="card-btn">+</div><div class="card-btn">♥</div></div></div>
+        </div>
+        <div class="netflix-card fc8" onclick="openLightbox('Baraat','Baraat procession under the stars · Wide angle')">
+          <div class="card-overlay"><div class="card-cat">Wedding</div><div class="card-title">The Baraat</div><div class="card-actions"><div class="card-btn play">▶</div><div class="card-btn">+</div><div class="card-btn">♥</div></div></div>
+        </div>
+        <div class="netflix-card fc10" onclick="openLightbox('Details','Ring and floral detail series · Macro 100mm')">
+          <div class="card-overlay"><div class="card-cat">Wedding</div><div class="card-title">Details</div><div class="card-actions"><div class="card-btn play">▶</div><div class="card-btn">+</div><div class="card-btn">♥</div></div></div>
+        </div>
+        <div class="netflix-card fc3" onclick="openLightbox('Walima','Walima reception, luxury venue · 24-70mm')">
+          <div class="card-overlay"><div class="card-cat">Wedding</div><div class="card-title">Walima</div><div class="card-actions"><div class="card-btn play">▶</div><div class="card-btn">+</div><div class="card-btn">♥</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 3 -->
+  <div class="netflix-row reveal">
+    <div class="netflix-row-header">
+      <div class="netflix-row-title">Landscapes of <span>Pakistan</span></div>
+      <a href="#" class="see-all">Explore All →</a>
+    </div>
+    <div class="netflix-track-wrap">
+      <div class="netflix-track" id="row3">
+        <div class="netflix-card fc2" onclick="openLightbox('Margalla Dawn','Islamabad Margalla Hills at sunrise · 16-35mm f/2.8')">
+          <div class="card-overlay"><div class="card-cat">Landscape</div><div class="card-title">Margalla Dawn</div><div class="card-actions"><div class="card-btn play">▶</div><div class="card-btn">+</div><div class="card-btn">♥</div></div></div>
+        </div>
+        <div class="netflix-card fc5" onclick="openLightbox('K2 Base Camp','Expedition photography, Karakoram · 24mm f/1.4')">
+          <div class="card-overlay"><div class="card-cat">Landscape</div><div class="card-title">K2 Base Camp</div><div class="card-actions"><div class="card-btn play">▶</div><div class="card-btn">+</div><div class="card-btn">♥</div></div></div>
+        </div>
+        <div class="netflix-card fc10" onclick="openLightbox('Hunza Valley','Autumn colours, Hunza · Drone DJI Mavic 3 Pro')">
+          <div class="card-overlay"><div class="card-cat">Landscape</div><div class="card-title">Hunza Valley</div><div class="card-actions"><div class="card-btn play">▶</div><div class="card-btn">+</div><div class="card-btn">♥</div></div></div>
+        </div>
+        <div class="netflix-card fc1" onclick="openLightbox('Deosai Plains','Sunrise on Deosai, highest plateau · 14mm f/1.8')">
+          <div class="card-overlay"><div class="card-cat">Landscape</div><div class="card-title">Deosai Plains</div><div class="card-actions"><div class="card-btn play">▶</div><div class="card-btn">+</div><div class="card-btn">♥</div></div></div>
+        </div>
+        <div class="netflix-card fc6" onclick="openLightbox('Lahore Fort','Blue hour, Lahore Fort · 24-70mm')">
+          <div class="card-overlay"><div class="card-cat">Landscape</div><div class="card-title">Lahore Fort</div><div class="card-actions"><div class="card-btn play">▶</div><div class="card-btn">+</div><div class="card-btn">♥</div></div></div>
+        </div>
+        <div class="netflix-card fc9" onclick="openLightbox('Attabad Lake','Turquoise waters, Attabad · Drone')">
+          <div class="card-overlay"><div class="card-cat">Landscape</div><div class="card-title">Attabad Lake</div><div class="card-actions"><div class="card-btn play">▶</div><div class="card-btn">+</div><div class="card-btn">♥</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED WORK -->
+<section id="featured" style="padding-top: 0;">
+  <div class="section-eyebrow reveal">Selected Work</div>
+  <h2 class="section-title reveal">Editor's <em>Picks</em></h2>
+  <div class="featured-grid reveal">
+    <div class="featured-main">
+      <div class="featured-item fc1" style="height:100%;">
+        <svg width="100%" height="100%" viewBox="0 0 400 500" style="position:absolute;inset:0" preserveAspectRatio="xMidYMid slice">
+          <defs><radialGradient id="rfg" cx="50%" cy="30%" r="70%"><stop offset="0%" stop-color="#c9a84c" stop-opacity="0.2"/><stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/></radialGradient></defs>
+          <rect width="400" height="500" fill="url(#rfg)"/>
+          <ellipse cx="200" cy="200" rx="90" ry="110" fill="none" stroke="rgba(201,168,76,0.12)" stroke-width="1"/>
+          <text x="200" y="460" font-family="'Playfair Display',serif" font-size="13" fill="rgba(201,168,76,0.2)" text-anchor="middle" font-style="italic">Ahmad Raza Photography</text>
+        </svg>
+        <div class="featured-overlay">
+          <div class="featured-label">Featured Work · 2024</div>
+          <div class="featured-name">The Mountain Woman</div>
+        </div>
+      </div>
+    </div>
+    <div class="featured-side"><div class="featured-item fc2" style="height:100%;"><div class="featured-overlay"><div class="featured-label">Commercial</div><div class="featured-name">City Lights</div></div></div></div>
+    <div class="featured-side"><div class="featured-item fc4" style="height:100%;"><div class="featured-overlay"><div class="featured-label">Landscape</div><div class="featured-name">Green Valley</div></div></div></div>
+    <div class="featured-side"><div class="featured-item fc6" style="height:100%;"><div class="featured-overlay"><div class="featured-label">Portrait</div><div class="featured-name">Twilight Eyes</div></div></div></div>
+    <div class="featured-side"><div class="featured-item fc9" style="height:100%;"><div class="featured-overlay"><div class="featured-label">Street</div><div class="featured-name">The Bazaar</div></div></div></div>
+  </div>
+</section>
+
+<!-- EQUIPMENT -->
+<section id="equipment">
+  <div class="section-eyebrow reveal">My Arsenal</div>
+  <h2 class="section-title reveal">Professional <em>Gear</em></h2>
+  <p class="section-desc reveal">The tools I trust to deliver stunning results, session after session.</p>
+
+  <div class="equipment-tabs reveal">
+    <button class="eq-tab active" onclick="switchTab('cameras', this)">Cameras</button>
+    <button class="eq-tab" onclick="switchTab('lenses', this)">Lenses</button>
+    <button class="eq-tab" onclick="switchTab('lighting', this)">Lighting</button>
+    <button class="eq-tab" onclick="switchTab('accessories', this)">Accessories</button>
+  </div>
+
+  <div class="eq-panel active" id="tab-cameras">
+    <div class="eq-card reveal">
+      <div class="eq-icon">📷</div>
+      <div class="eq-info">
+        <div class="eq-name">Sony Alpha A7 IV</div>
+        <div class="eq-desc">33MP full-frame BSI sensor. Dual native ISO. My primary body for portrait and commercial work.</div>
+        <span class="eq-tag">Primary Body</span>
+      </div>
+    </div>
+    <div class="eq-card reveal reveal-delay-1">
+      <div class="eq-icon">📸</div>
+      <div class="eq-info">
+        <div class="eq-name">Sony A7R V</div>
+        <div class="eq-desc">61MP resolution beast. Used for architectural and landscape work where ultimate detail matters.</div>
+        <span class="eq-tag">Detail & Architecture</span>
+      </div>
+    </div>
+    <div class="eq-card reveal reveal-delay-2">
+      <div class="eq-icon">🎬</div>
+      <div class="eq-info">
+        <div class="eq-name">Sony FX3</div>
+        <div class="eq-desc">Cinema Line camera. Perfect for video coverage at events and behind-the-scenes content.</div>
+        <span class="eq-tag">Video & Cinema</span>
+      </div>
+    </div>
+    <div class="eq-card reveal reveal-delay-3">
+      <div class="eq-icon">🚁</div>
+      <div class="eq-info">
+        <div class="eq-name">DJI Mavic 3 Pro</div>
+        <div class="eq-desc">Triple-camera aerial system. Hasselblad lens. Essential for landscape and event aerial shots.</div>
+        <span class="eq-tag">Aerial Drone</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="eq-panel" id="tab-lenses">
+    <div class="eq-card reveal">
+      <div class="eq-icon">🔭</div>
+      <div class="eq-info">
+        <div class="eq-name">Sony 85mm f/1.4 GM</div>
+        <div class="eq-desc">The portrait legend. Razor-sharp, impossibly beautiful bokeh. My most-used prime.</div>
+        <span class="eq-tag">Portraits</span>
+      </div>
+    </div>
+    <div class="eq-card reveal reveal-delay-1">
+      <div class="eq-icon">🔭</div>
+      <div class="eq-info">
+        <div class="eq-name">Sony 24-70mm f/2.8 GM II</div>
+        <div class="eq-desc">The workhorse. Covers 90% of wedding and event work. Incredibly sharp wide open.</div>
+        <span class="eq-tag">Events & Weddings</span>
+      </div>
+    </div>
+    <div class="eq-card reveal reveal-delay-2">
+      <div class="eq-icon">🔭</div>
+      <div class="eq-info">
+        <div class="eq-name">Sony 16-35mm f/2.8 GM</div>
+        <div class="eq-desc">Wide-angle powerhouse for landscapes, architectural, and dramatic environmental portraits.</div>
+        <span class="eq-tag">Landscape & Architecture</span>
+      </div>
+    </div>
+    <div class="eq-card reveal reveal-delay-3">
+      <div class="eq-icon">🔭</div>
+      <div class="eq-info">
+        <div class="eq-name">Sony 50mm f/1.2 GM</div>
+        <div class="eq-desc">The classic perspective. Stunning at f/1.2. My go-to for intimate documentary work.</div>
+        <span class="eq-tag">Documentary</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="eq-panel" id="tab-lighting">
+    <div class="eq-card reveal">
+      <div class="eq-icon">💡</div>
+      <div class="eq-info">
+        <div class="eq-name">Profoto B10X Plus</div>
+        <div class="eq-desc">500Ws battery-powered flash. TTL-capable. Used for on-location portrait and fashion work.</div>
+        <span class="eq-tag">Key Light</span>
+      </div>
+    </div>
+    <div class="eq-card reveal reveal-delay-1">
+      <div class="eq-icon">💡</div>
+      <div class="eq-info">
+        <div class="eq-name">Profoto D2 1000 AirTTL</div>
+        <div class="eq-desc">Studio monolight with 1000Ws. Freeze fast-moving subjects at 1/63,000s flash duration.</div>
+        <span class="eq-tag">Studio Strobe</span>
+      </div>
+    </div>
+    <div class="eq-card reveal reveal-delay-2">
+      <div class="eq-icon">⭕</div>
+      <div class="eq-info">
+        <div class="eq-name">Profoto Octa 150cm</div>
+        <div class="eq-desc">Giant soft light source. Creates wraparound, flattering light for beauty and fashion portraits.</div>
+        <span class="eq-tag">Softbox Modifier</span>
+      </div>
+    </div>
+    <div class="eq-card reveal reveal-delay-3">
+      <div class="eq-icon">🌟</div>
+      <div class="eq-info">
+        <div class="eq-name">Nanlite Pavotube II 30C</div>
+        <div class="eq-desc">RGB tube lights. Incredible creative flexibility for colour-lit portraits and moody editorial work.</div>
+        <span class="eq-tag">Creative Lighting</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="eq-panel" id="tab-accessories">
+    <div class="eq-card reveal">
+      <div class="eq-icon">🎒</div>
+      <div class="eq-info">
+        <div class="eq-name">Peak Design Travel Backpack 45L</div>
+        <div class="eq-desc">My entire kit travels in this. Waterproof, perfectly organised, and carry-on compliant.</div>
+        <span class="eq-tag">Bag</span>
+      </div>
+    </div>
+    <div class="eq-card reveal reveal-delay-1">
+      <div class="eq-icon">🖥️</div>
+      <div class="eq-info">
+        <div class="eq-name">Apple MacBook Pro M3 Max</div>
+        <div class="eq-desc">Photo editing powerhouse. Processes 50MP RAW files like they're JPEGs. Incredible display accuracy.</div>
+        <span class="eq-tag">Post-Production</span>
+      </div>
+    </div>
+    <div class="eq-card reveal reveal-delay-2">
+      <div class="eq-icon">📱</div>
+      <div class="eq-info">
+        <div class="eq-name">Capture One Pro 24</div>
+        <div class="eq-desc">Industry-leading RAW processor. Unparalleled colour science and detail rendering.</div>
+        <span class="eq-tag">Editing Software</span>
+      </div>
+    </div>
+    <div class="eq-card reveal reveal-delay-3">
+      <div class="eq-icon">🎨</div>
+      <div class="eq-info">
+        <div class="eq-name">Eizo ColorEdge CG2700X</div>
+        <div class="eq-desc">Self-calibrating, wide-gamut monitor. Every print matches what I see on screen.</div>
+        <span class="eq-tag">Color-Critical Monitor</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div style="max-width: 600px;">
+    <div class="section-eyebrow reveal">Services & Pricing</div>
+    <h2 class="section-title reveal">What I <em>Offer</em></h2>
+    <p class="section-desc reveal">Transparent pricing. No hidden fees. Exceptional results guaranteed.</p>
+  </div>
+  <div class="services-grid reveal" style="margin-top: 3rem;">
+    <div class="service-card">
+      <span class="service-num">01 ——</span>
+      <div class="service-icon">👤</div>
+      <div class="service-name">Portrait Session</div>
+      <div class="service-desc">Personal, corporate, or family portraits. 2-hour session, 2 locations, 30 fully retouched images delivered in 5 days.</div>
+      <div class="service-price">PKR 35,000 <span>/ session</span></div>
+    </div>
+    <div class="service-card">
+      <span class="service-num">02 ——</span>
+      <div class="service-icon">💍</div>
+      <div class="service-name">Wedding Coverage</div>
+      <div class="service-desc">Full-day bridal coverage from Dholki to Walima. Second shooter, 500+ edited images, online gallery, and highlight reel.</div>
+      <div class="service-price">PKR 180,000 <span>/ full package</span></div>
+    </div>
+    <div class="service-card">
+      <span class="service-num">03 ——</span>
+      <div class="service-icon">🏢</div>
+      <div class="service-name">Commercial / Brand</div>
+      <div class="service-desc">Product photography, brand campaigns, corporate headshots. Custom packages tailored to your marketing goals.</div>
+      <div class="service-price">PKR 75,000 <span>/ half-day</span></div>
+    </div>
+    <div class="service-card">
+      <span class="service-num">04 ——</span>
+      <div class="service-icon">🎭</div>
+      <div class="service-name">Fashion Editorial</div>
+      <div class="service-desc">Studio or location fashion shoots. Full team coordination including MUA and styling. Magazine-ready deliverables.</div>
+      <div class="service-price">PKR 95,000 <span>/ editorial</span></div>
+    </div>
+    <div class="service-card">
+      <span class="service-num">05 ——</span>
+      <div class="service-icon">🚁</div>
+      <div class="service-name">Aerial Photography</div>
+      <div class="service-desc">Licensed drone operations across Pakistan. Real estate, landscapes, events. CAA-compliant with full coverage area.</div>
+      <div class="service-price">PKR 45,000 <span>/ half-day</span></div>
+    </div>
+    <div class="service-card">
+      <span class="service-num">06 ——</span>
+      <div class="service-icon">🎓</div>
+      <div class="service-name">Photography Workshop</div>
+      <div class="service-desc">Group (up to 8) or 1-on-1 masterclass. Covers composition, lighting, post-processing and developing your personal style.</div>
+      <div class="service-price">PKR 15,000 <span>/ person</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials" style="padding-bottom: 60px;">
+  <div class="section-eyebrow reveal">Testimonials</div>
+  <h2 class="section-title reveal">What Clients <em>Say</em></h2>
+  <div class="testimonials-track-wrap" style="margin: 3rem -8vw 0;">
+    <div class="testimonials-track">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-text">"Ahmad captured our wedding in a way that felt timeless. Every photograph is a piece of art. We still look at them every anniversary."</div>
+        <div class="testimonial-author"><div class="author-avatar">SR</div><div><div class="author-name">Sana & Raza Malik</div><div class="author-role">Wedding, Islamabad 2024</div></div></div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-text">"Our brand campaign images exceeded every expectation. Ahmad understood the brief intuitively and delivered cinematic commercial work."</div>
+        <div class="testimonial-author"><div class="author-avatar">AK</div><div><div class="author-name">Ayesha Khan</div><div class="author-role">CEO, Bloom Cosmetics</div></div></div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-text">"The portraits he captured for my portfolio are incredible. I booked three modelling jobs within the first week of posting them."</div>
+        <div class="testimonial-author"><div class="author-avatar">FM</div><div><div class="author-name">Fatima Mirza</div><div class="author-role">Fashion Model, Lahore</div></div></div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-text">"His drone work of our real estate project was absolutely stunning. The aerial shots sold the property in 48 hours. Phenomenal investment."</div>
+        <div class="testimonial-author"><div class="author-avatar">HS</div><div><div class="author-name">Hamid Shah</div><div class="author-role">Director, DHA Properties</div></div></div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-text">"Attended his photography workshop and it completely changed my perspective. Ahmad is not just a photographer — he's a genuine teacher."</div>
+        <div class="testimonial-author"><div class="author-avatar">UB</div><div><div class="author-name">Usman Baig</div><div class="author-role">Photography Student</div></div></div>
+      </div>
+      <!-- Duplicates for infinite scroll -->
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-text">"Ahmad captured our wedding in a way that felt timeless. Every photograph is a piece of art. We still look at them every anniversary."</div>
+        <div class="testimonial-author"><div class="author-avatar">SR</div><div><div class="author-name">Sana & Raza Malik</div><div class="author-role">Wedding, Islamabad 2024</div></div></div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-text">"Our brand campaign images exceeded every expectation. Ahmad understood the brief intuitively and delivered cinematic commercial work."</div>
+        <div class="testimonial-author"><div class="author-avatar">AK</div><div><div class="author-name">Ayesha Khan</div><div class="author-role">CEO, Bloom Cosmetics</div></div></div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-text">"The portraits he captured for my portfolio are incredible. I booked three modelling jobs within the first week of posting them."</div>
+        <div class="testimonial-author"><div class="author-avatar">FM</div><div><div class="author-name">Fatima Mirza</div><div class="author-role">Fashion Model, Lahore</div></div></div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-text">"His drone work of our real estate project was absolutely stunning. The aerial shots sold the property in 48 hours. Phenomenal investment."</div>
+        <div class="testimonial-author"><div class="author-avatar">HS</div><div><div class="author-name">Hamid Shah</div><div class="author-role">Director, DHA Properties</div></div></div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-text">"Attended his photography workshop and it completely changed my perspective. Ahmad is not just a photographer — he's a genuine teacher."</div>
+        <div class="testimonial-author"><div class="author-avatar">UB</div><div><div class="author-name">Usman Baig</div><div class="author-role">Photography Student</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="section-eyebrow reveal">How It Works</div>
+  <h2 class="section-title reveal">From Vision to <em>Reality</em></h2>
+  <div class="process-steps">
+    <div class="process-step reveal">
+      <div class="step-num">01</div>
+      <div class="step-title">Discovery Call</div>
+      <div class="step-desc">We talk through your vision, goals, and style. I get to understand exactly what you need before any camera is touched.</div>
+    </div>
+    <div class="process-step reveal reveal-delay-1">
+      <div class="step-num">02</div>
+      <div class="step-title">Pre-Shoot Planning</div>
+      <div class="step-desc">Location scouting, mood board creation, shot list preparation, and logistics coordination for a flawless session.</div>
+    </div>
+    <div class="process-step reveal reveal-delay-2">
+      <div class="step-num">03</div>
+      <div class="step-title">The Shoot</div>
+      <div class="step-desc">I direct with confidence and put every subject at ease. You'll enjoy the experience as much as the results.</div>
+    </div>
+    <div class="process-step reveal reveal-delay-3">
+      <div class="step-num">04</div>
+      <div class="step-title">Delivery</div>
+      <div class="step-desc">Fully retouched images delivered to a private online gallery within 7 days. Prints and albums available on request.</div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG / JOURNAL -->
+<section id="blog">
+  <div class="section-eyebrow reveal">Journal</div>
+  <h2 class="section-title reveal">Behind the <em>Lens</em></h2>
+  <div class="blog-grid">
+    <div class="blog-featured reveal">
+      <div class="blog-img">
+        <div class="blog-img-inner fc5" style="height:100%;min-height:260px;">
+          <svg width="100%" height="100%" viewBox="0 0 600 300" style="position:absolute;inset:0" preserveAspectRatio="xMidYMid slice">
+            <rect width="600" height="300" fill="rgba(20,80,30,0.1)"/>
+            <path d="M0 200 Q150 120 300 180 Q450 240 600 160" fill="none" stroke="rgba(80,180,100,0.2)" stroke-width="1.5"/>
+            <text x="300" y="280" font-family="'Playfair Display',serif" font-size="14" fill="rgba(80,180,100,0.2)" text-anchor="middle" font-style="italic">Golden Hour in the Mountains</text>
+          </svg>
+        </div>
+      </div>
+      <span class="blog-cat">Field Notes</span>
+      <a href="#" class="blog-title">How I Shot K2 Base Camp: Lessons From 5,000 Metres Above Sea Level</a>
+      <div class="blog-meta">June 2025 · 8 min read</div>
+    </div>
+    <div class="blog-list reveal reveal-delay-1">
+      <div class="blog-list-item">
+        <div class="blog-thumb"><div class="blog-thumb-inner fc2" style="height:80px;"></div></div>
+        <div>
+          <a href="#" class="blog-list-title">My Complete Sony A7 IV Wedding Setup</a>
+          <div class="blog-list-meta">May 2025 · 5 min read</div>
+        </div>
+      </div>
+      <div class="blog-list-item">
+        <div class="blog-thumb"><div class="blog-thumb-inner fc3" style="height:80px;"></div></div>
+        <div>
+          <a href="#" class="blog-list-title">Why I Switched From Canon to Sony — Two Years On</a>
+          <div class="blog-list-meta">April 2025 · 6 min read</div>
+        </div>
+      </div>
+      <div class="blog-list-item">
+        <div class="blog-thumb"><div class="blog-thumb-inner fc7" style="height:80px;"></div></div>
+        <div>
+          <a href="#" class="blog-list-title">The Art of Photographing Pakistani Weddings</a>
+          <div class="blog-list-meta">March 2025 · 7 min read</div>
+        </div>
+      </div>
+      <div class="blog-list-item">
+        <div class="blog-thumb"><div class="blog-thumb-inner fc9" style="height:80px;"></div></div>
+        <div>
+          <a href="#" class="blog-list-title">10 Islamabad Locations Every Photographer Should Know</a>
+          <div class="blog-list-meta">February 2025 · 4 min read</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-eyebrow reveal">Get In Touch</div>
+  <h2 class="section-title reveal">Let's Create <em>Something</em></h2>
+  <div class="contact-grid">
+    <div class="contact-info reveal">
+      <p style="color: var(--muted); line-height: 1.75; margin-bottom: 2.5rem; font-weight: 300;">
+        Ready to capture your story? I take on a limited number of projects each month to ensure every client gets my full attention. Reach out and let's talk.
+      </p>
+      <div class="contact-detail">
+        <div class="contact-icon">📍</div>
+        <div class="contact-detail-text">
+          <div class="contact-detail-label">Location</div>
+          <div class="contact-detail-value">F-7 Markaz, Islamabad, Pakistan</div>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-icon">📞</div>
+        <div class="contact-detail-text">
+          <div class="contact-detail-label">Phone / WhatsApp</div>
+          <div class="contact-detail-value">+92 300 123 4567</div>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-icon">✉️</div>
+        <div class="contact-detail-text">
+          <div class="contact-detail-label">Email</div>
+          <div class="contact-detail-value">hello@ahmadrazaphoto.pk</div>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-icon">🕐</div>
+        <div class="contact-detail-text">
+          <div class="contact-detail-label">Response Time</div>
+          <div class="contact-detail-value">Within 24 hours, Mon–Sat</div>
+        </div>
+      </div>
+      <div class="contact-social">
+        <a href="#" class="social-btn" title="Instagram">📷</a>
+        <a href="#" class="social-btn" title="Facebook">📘</a>
+        <a href="#" class="social-btn" title="LinkedIn">💼</a>
+        <a href="#" class="social-btn" title="YouTube">▶</a>
+        <a href="#" class="social-btn" title="Behance">🎨</a>
+      </div>
+    </div>
+    <div class="contact-form reveal reveal-delay-1">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First Name</label>
+          <input type="text" class="form-input" placeholder="Ahmad">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name</label>
+          <input type="text" class="form-input" placeholder="Khan">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-input" placeholder="your@email.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone / WhatsApp</label>
+        <input type="tel" class="form-input" placeholder="+92 300 000 0000">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Service Interested In</label>
+        <select class="form-select">
+          <option value="" disabled selected>Select a service...</option>
+          <option>Portrait Session</option>
+          <option>Wedding Photography</option>
+          <option>Commercial / Brand</option>
+          <option>Fashion Editorial</option>
+          <option>Aerial Photography</option>
+          <option>Event Coverage</option>
+          <option>Photography Workshop</option>
+          <option>Other / Custom</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Project Date</label>
+        <input type="date" class="form-input">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Tell Me About Your Vision</label>
+        <textarea class="form-textarea" placeholder="Describe your project, special requirements, inspiration..."></textarea>
+      </div>
+      <button class="form-submit" onclick="handleSubmit(this)">Send Message →</button>
+      <div class="form-note">I respond to every enquiry within 24 hours. Your details are never shared.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#hero" class="nav-logo">
+        <div class="nav-logo-dot"></div>
+        LENS<span style="color:var(--gold)">&</span>LIGHT
+      </a>
+      <p>Award-winning photographer based in Islamabad, capturing the beauty of Pakistan and the world — one frame at a time.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Navigation</div>
+      <ul class="footer-links">
+        <li><a href="#about">About Me</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#featured">Featured Work</a></li>
+        <li><a href="#equipment">My Gear</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#blog">Journal</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links">
+        <li><a href="#services">Portrait Sessions</a></li>
+        <li><a href="#services">Wedding Coverage</a></li>
+        <li><a href="#services">Commercial Shoots</a></li>
+        <li><a href="#services">Fashion Editorials</a></li>
+        <li><a href="#services">Aerial Photography</a></li>
+        <li><a href="#services">Workshops</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-links">
+        <li><a href="tel:+923001234567">+92 300 123 4567</a></li>
+        <li><a href="mailto:hello@ahmadrazaphoto.pk">hello@ahmadrazaphoto.pk</a></li>
+        <li><a href="#">F-7 Markaz, Islamabad</a></li>
+        <li style="margin-top: 12px;"><a href="#">Instagram</a></li>
+        <li><a href="#">Behance Portfolio</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2025 Ahmad Raza Photography — All Rights Reserved</div>
+    <div class="footer-bottom-right">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+      <a href="#">Sitemap</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// CURSOR
+const cursor = document.getElementById('cursor');
+const cursorRing = document.getElementById('cursorRing');
+let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX; mouseY = e.clientY;
+  cursor.style.left = mouseX + 'px';
+  cursor.style.top = mouseY + 'px';
+});
+function animateRing() {
+  ringX += (mouseX - ringX) * 0.12;
+  ringY += (mouseY - ringY) * 0.12;
+  cursorRing.style.left = ringX + 'px';
+  cursorRing.style.top = ringY + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+document.querySelectorAll('a, button, .netflix-card, .eq-card, .service-card, .filter-btn').forEach(el => {
+  el.addEventListener('mouseenter', () => { cursor.classList.add('hovered'); cursorRing.classList.add('hovered'); });
+  el.addEventListener('mouseleave', () => { cursor.classList.remove('hovered'); cursorRing.classList.remove('hovered'); });
+});
+
+// NAVBAR SCROLL
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// MOBILE NAV
+function toggleNav() {
+  document.getElementById('mobileNav').classList.toggle('open');
+}
+
+// SCROLL REVEAL
+const revealEls = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.12 });
+revealEls.forEach(el => revealObserver.observe(el));
+
+// EQUIPMENT TABS
+function switchTab(id, btn) {
+  document.querySelectorAll('.eq-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.eq-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-' + id).classList.add('active');
+}
+
+// PORTFOLIO FILTER
+function filterPortfolio(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  // Visual feedback — in a real implementation this would filter the DOM
+  document.querySelectorAll('.netflix-card').forEach(card => {
+    card.style.opacity = '0.3';
+    card.style.transform = 'scale(0.95)';
+  });
+  setTimeout(() => {
+    document.querySelectorAll('.netflix-card').forEach(card => {
+      card.style.opacity = '1';
+      card.style.transform = '';
+      card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+    });
+  }, 200);
+}
+
+// LIGHTBOX
+function openLightbox(title, desc) {
+  document.getElementById('lightboxTitle').textContent = title;
+  document.getElementById('lightboxDesc').textContent = desc;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) closeLightbox();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+// FORM SUBMIT
+function handleSubmit(btn) {
+  btn.textContent = 'Sending...';
+  btn.style.opacity = '0.7';
+  setTimeout(() => {
+    btn.textContent = '✓ Message Sent!';
+    btn.style.background = '#2d7a3a';
+    btn.style.opacity = '1';
+    setTimeout(() => {
+      btn.textContent = 'Send Message →';
+      btn.style.background = '';
+    }, 3000);
+  }, 1500);
+}
+
+// NETFLIX ROW MOUSE DRAG SCROLL
+document.querySelectorAll('.netflix-track').forEach(track => {
+  let isDown = false, startX, scrollLeft;
+  track.addEventListener('mousedown', e => {
+    isDown = true;
+    startX = e.pageX - track.offsetLeft;
+    scrollLeft = track.scrollLeft;
+    track.style.cursor = 'grabbing';
+  });
+  track.addEventListener('mouseleave', () => { isDown = false; track.style.cursor = ''; });
+  track.addEventListener('mouseup', () => { isDown = false; track.style.cursor = ''; });
+  track.addEventListener('mousemove', e => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - track.offsetLeft;
+    track.scrollLeft = scrollLeft - (x - startX) * 1.5;
+  });
+});
+
+// Make Netflix tracks scrollable (overflow-x: auto)
+document.querySelectorAll('.netflix-track').forEach(t => {
+  t.style.overflowX = 'auto';
+  t.style.scrollbarWidth = 'none';
+  t.style.msOverflowStyle = 'none';
+});
+</script>
+</body>
+</html>
